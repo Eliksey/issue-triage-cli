@@ -5,12 +5,15 @@ const path = require('path');
 const { scanRepo, suggestLabels } = require('./triage');
 const { loadConfig } = require('./config');
 
+const VERSION = require('../package.json').version;
+
 function printHelp() {
-  console.log(`issue-triage-cli — maintainer triage for GitHub issues/PRs
+  console.log(`issue-triage-cli v${VERSION} — maintainer triage for GitHub issues/PRs
 
 Usage:
   issue-triage scan <owner/repo> [--prs] [--stale-days N] [--out file.md]
   issue-triage suggest <owner/repo> [--limit N]
+  issue-triage version
   issue-triage --help
 
 Requires: gh CLI authenticated (gh auth status)
@@ -22,6 +25,7 @@ function parseArgs(argv) {
   for (let i = 0; i < argv.length; i++) {
     const a = argv[i];
     if (a === '--help' || a === '-h') args.help = true;
+    else if (a === '--version' || a === '-V') args.version = true;
     else if (a === '--prs') args.prs = true;
     else if (a === '--stale-days') args.staleDays = Number(argv[++i]);
     else if (a === '--out') args.out = argv[++i];
@@ -33,6 +37,10 @@ function parseArgs(argv) {
 
 async function main(argv) {
   const args = parseArgs(argv);
+  if (args.version || args._[0] === 'version') {
+    console.log(VERSION);
+    return;
+  }
   if (args.help || args._.length === 0) {
     printHelp();
     return;

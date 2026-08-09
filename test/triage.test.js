@@ -22,4 +22,20 @@ describe('daysSince', () => {
     const d = daysSince(new Date(Date.now() - 3 * 86400000).toISOString());
     assert.ok(d >= 2 && d <= 4);
   });
+
+  it('returns 0 for invalid iso', () => {
+    assert.equal(daysSince('not-a-date'), 0);
+  });
+});
+
+describe('suggestFromText edge', () => {
+  it('returns empty for blank title', () => {
+    const s = suggestFromText('', '', DEFAULT.labelRules);
+    assert.deepEqual(s, []);
+  });
+
+  it('dedupes multiple keyword hits for same label', () => {
+    const s = suggestFromText('bug crash error exception', '', DEFAULT.labelRules);
+    assert.equal(s.filter((x) => x === 'bug').length, 1);
+  });
 });

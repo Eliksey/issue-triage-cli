@@ -1,0 +1,12 @@
+node_modules/
+npm-debug.log*
+.DS_Store
+*.md.bak
+triage-report.md
+.env
+.env.*
+.idea/
+.vscode/
+coverage/
+dist/
+*.log

@@ -1,0 +1,10 @@
+{
+  "staleDays": 21,
+  "labelRules": [
+    { "label": "bug", "keywords": ["crash", "error", "exception", "fails", "broken", "bug"] },
+    { "label": "documentation", "keywords": ["docs", "readme", "typo", "documentation"] },
+    { "label": "enhancement", "keywords": ["feature", "add support", "improve", "enhancement"] },
+    { "label": "question", "keywords": ["how do i", "help", "question", "?"] },
+    { "label": "security", "keywords": ["cve", "xss", "injection", "auth", "token leak"] }
+  ]
+}

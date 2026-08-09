@@ -1,7 +1,7 @@
 {
   "name": "issue-triage-cli",
-  "version": "1.0.0",
-  "description": "CLI for open-source maintainers to triage GitHub issues and PRs",
+  "version": "1.0.1",
+  "description": "CLI for open-source maintainers to triage GitHub issues and PRs (stale detection, label suggestions, markdown reports)",
   "bin": {
     "issue-triage": "bin/issue-triage.js"
   },
@@ -11,7 +11,8 @@
   },
   "scripts": {
     "start": "node bin/issue-triage.js",
-    "test": "node --test test/*.test.js"
+    "test": "node --test test/*.test.js",
+    "help": "node bin/issue-triage.js --help"
   },
   "keywords": [
     "github",
@@ -20,7 +21,17 @@
     "cli",
     "open-source",
     "issues",
-    "pull-requests"
+    "pull-requests",
+    "codex",
+    "stale",
+    "labels"
+  ],
+  "files": [
+    "bin/",
+    "src/",
+    "LICENSE",
+    "README.md",
+    "triage.config.example.json"
   ],
   "author": "Eliksey",
   "license": "MIT",
