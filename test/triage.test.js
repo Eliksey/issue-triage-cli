@@ -38,4 +38,27 @@ describe('suggestFromText edge', () => {
     const s = suggestFromText('bug crash error exception', '', DEFAULT.labelRules);
     assert.equal(s.filter((x) => x === 'bug').length, 1);
   });
+
+  it('reads body for security keywords', () => {
+    const s = suggestFromText('please look', 'possible XSS in markdown render', DEFAULT.labelRules);
+    assert.ok(s.includes('security'));
+  });
+});
+
+describe('priorityScore', () => {
+  const { priorityScore } = require('../src/triage');
+
+  it('boosts security labels and PRs', () => {
+    const issue = {
+      updatedAt: new Date(Date.now() - 40 * 86400000).toISOString(),
+      comments: 2,
+      labels: [{ name: 'security' }],
+    };
+    const pr = {
+      updatedAt: new Date().toISOString(),
+      comments: 0,
+      labels: [],
+    };
+    assert.ok(priorityScore(issue, 'issue', 21) > priorityScore(pr, 'pr', 21));
+  });
 });

@@ -6,10 +6,12 @@ const path = require('path');
 const DEFAULT = {
   staleDays: 21,
   labelRules: [
-    { label: 'bug', keywords: ['crash', 'error', 'exception', 'fails', 'broken', 'bug'] },
-    { label: 'documentation', keywords: ['docs', 'readme', 'typo', 'documentation'] },
-    { label: 'enhancement', keywords: ['feature', 'add support', 'improve', 'enhancement'] },
-    { label: 'question', keywords: ['how do i', 'help', 'question', '?'] },
+    { label: 'bug', keywords: ['crash', 'error', 'exception', 'fails', 'broken', 'bug', 'regression', 'stacktrace'] },
+    { label: 'documentation', keywords: ['docs', 'readme', 'typo', 'documentation', 'guide'] },
+    { label: 'enhancement', keywords: ['feature', 'add support', 'improve', 'enhancement', 'wishlist'] },
+    { label: 'question', keywords: ['how do i', 'help', 'question', 'how to'] },
+    { label: 'security', keywords: ['cve', 'xss', 'injection', 'vulnerability', 'auth bypass', 'rce'] },
+    { label: 'performance', keywords: ['slow', 'latency', 'memory leak', 'oom', 'perf'] },
   ],
 };
 

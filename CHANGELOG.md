@@ -2,6 +2,23 @@
 
 All notable changes to this project are documented in this file.
 
+## [1.1.0] — 2026-08-10
+
+### Added
+
+- Priority scoring (`pNN`) for backlog ranking (stale, comments, PR, security/bug labels)
+- `summary` command for one-screen maintainer snapshot
+- `--json` / `--json-out` for agent/CI pipelines
+- Body-aware label suggestions (title + body)
+- Security + performance default label rules
+- Agent handoff block in markdown reports (paste into Codex/ChatGPT)
+- Priority queue (top 10) section in markdown reports
+
+### Changed
+
+- Default sort is priority score, then age
+- Issue/PR fetch includes `body` for better suggestions
+
 ## [1.0.1] — 2026-08-09
 
 ### Added

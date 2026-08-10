@@ -1,7 +1,7 @@
 {
   "name": "issue-triage-cli",
-  "version": "1.0.1",
-  "description": "CLI for open-source maintainers to triage GitHub issues and PRs (stale detection, label suggestions, markdown reports)",
+  "version": "1.1.0",
+  "description": "CLI for open-source maintainers to triage GitHub issues and PRs: priority scoring, stale detection, label suggestions, markdown/JSON reports for humans and AI agents",
   "bin": {
     "issue-triage": "bin/issue-triage.js"
   },
@@ -29,8 +29,10 @@
   "files": [
     "bin/",
     "src/",
+    "examples/",
     "LICENSE",
     "README.md",
+    "CHANGELOG.md",
     "triage.config.example.json"
   ],
   "author": "Eliksey",

@@ -11,10 +11,19 @@ function printHelp() {
   console.log(`issue-triage-cli v${VERSION} — maintainer triage for GitHub issues/PRs
 
 Usage:
-  issue-triage scan <owner/repo> [--prs] [--stale-days N] [--out file.md]
+  issue-triage scan <owner/repo> [--prs] [--stale-days N] [--out file.md] [--json] [--json-out file.json]
   issue-triage suggest <owner/repo> [--limit N]
+  issue-triage summary <owner/repo> [--prs] [--stale-days N]
   issue-triage version
   issue-triage --help
+
+Flags:
+  --prs            include open pull requests
+  --stale-days N   stale threshold (default 21 or triage.config.json)
+  --out FILE       write markdown report
+  --json           print machine-readable JSON to stdout
+  --json-out FILE  write JSON report
+  --limit N        suggest: max issues (default 20)
 
 Requires: gh CLI authenticated (gh auth status)
 `);
@@ -27,8 +36,10 @@ function parseArgs(argv) {
     if (a === '--help' || a === '-h') args.help = true;
     else if (a === '--version' || a === '-V') args.version = true;
     else if (a === '--prs') args.prs = true;
+    else if (a === '--json') args.json = true;
     else if (a === '--stale-days') args.staleDays = Number(argv[++i]);
     else if (a === '--out') args.out = argv[++i];
+    else if (a === '--json-out') args.jsonOut = argv[++i];
     else if (a === '--limit') args.limit = Number(argv[++i]);
     else args._.push(a);
   }
@@ -55,17 +66,31 @@ async function main(argv) {
   const config = loadConfig(process.cwd());
   if (args.staleDays) config.staleDays = args.staleDays;
 
-  if (cmd === 'scan') {
+  if (cmd === 'scan' || cmd === 'summary') {
     const report = await scanRepo(repo, {
       includePrs: !!args.prs,
       staleDays: config.staleDays,
       labelRules: config.labelRules,
     });
+    if (cmd === 'summary') {
+      const { summarizeLocal } = require('./triage');
+      const s = summarizeLocal(report.items, repo, config.staleDays);
+      console.log(s.text);
+      return;
+    }
     if (args.out) {
       fs.writeFileSync(path.resolve(args.out), report.markdown, 'utf8');
       console.log(`Wrote ${args.out}`);
     }
-    console.log(report.text);
+    if (args.jsonOut) {
+      fs.writeFileSync(path.resolve(args.jsonOut), JSON.stringify(report.json, null, 2), 'utf8');
+      console.log(`Wrote ${args.jsonOut}`);
+    }
+    if (args.json) {
+      console.log(JSON.stringify(report.json, null, 2));
+    } else {
+      console.log(report.text);
+    }
     return;
   }
 
