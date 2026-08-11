@@ -42,6 +42,8 @@ function parseArgs(argv) {
     else if (a === '--json-out') args.jsonOut = argv[++i];
     else if (a === '--html-out') args.htmlOut = argv[++i];
     else if (a === '--codex') args.codex = true;
+    else if (a === '--slack') args.slack = true;
+    else if (a === '--discord') args.discord = true;
     else if (a === '--limit') args.limit = Number(argv[++i]);
     else args._.push(a);
   }
@@ -97,6 +99,16 @@ async function main(argv) {
     if (args.codex) {
       const { formatForCodex } = require('./codexFormat');
       console.log(formatForCodex(report.items, { repository: repo }));
+      return;
+    }
+    if (args.slack) {
+      const { formatForSlack } = require('./slackFormat');
+      console.log(formatForSlack(report.items, { repository: repo }));
+      return;
+    }
+    if (args.discord) {
+      const { formatForDiscord } = require('./slackFormat');
+      console.log(formatForDiscord(report.items, { repository: repo }));
       return;
     }
     if (args.json) {
