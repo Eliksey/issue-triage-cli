@@ -40,6 +40,8 @@ function parseArgs(argv) {
     else if (a === '--stale-days') args.staleDays = Number(argv[++i]);
     else if (a === '--out') args.out = argv[++i];
     else if (a === '--json-out') args.jsonOut = argv[++i];
+    else if (a === '--html-out') args.htmlOut = argv[++i];
+    else if (a === '--codex') args.codex = true;
     else if (a === '--limit') args.limit = Number(argv[++i]);
     else args._.push(a);
   }
@@ -85,6 +87,17 @@ async function main(argv) {
     if (args.jsonOut) {
       fs.writeFileSync(path.resolve(args.jsonOut), JSON.stringify(report.json, null, 2), 'utf8');
       console.log(`Wrote ${args.jsonOut}`);
+    }
+    if (args.htmlOut) {
+      const { formatAsHTML } = require('./htmlReport');
+      const html = formatAsHTML(report.items, { repository: repo });
+      fs.writeFileSync(path.resolve(args.htmlOut), html, 'utf8');
+      console.log(`Wrote HTML dashboard to ${args.htmlOut}`);
+    }
+    if (args.codex) {
+      const { formatForCodex } = require('./codexFormat');
+      console.log(formatForCodex(report.items, { repository: repo }));
+      return;
     }
     if (args.json) {
       console.log(JSON.stringify(report.json, null, 2));
