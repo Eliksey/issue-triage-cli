@@ -1,0 +1,36 @@
+name: 'Issue Triage & Codex Digest Action'
+description: 'Automated backlog triage, priority scoring, stale detection, and Codex/LLM digest generator for GitHub OSS maintainers.'
+author: 'Eliksey'
+branding:
+  icon: 'check-square'
+  color: 'blue'
+
+inputs:
+  repository:
+    description: 'Target GitHub repository in owner/repo format'
+    required: false
+    default: '${{ github.repository }}'
+  token:
+    description: 'GitHub token for API access'
+    required: false
+    default: '${{ github.token }}'
+  format:
+    description: 'Output format: markdown, json, or codex'
+    required: false
+    default: 'markdown'
+  stale-days:
+    description: 'Days of inactivity before marking issue as stale'
+    required: false
+    default: '30'
+
+outputs:
+  report:
+    description: 'Generated triage report or JSON payload'
+  stale-count:
+    description: 'Number of stale issues identified'
+  high-priority-count:
+    description: 'Number of high priority items identified'
+
+runs:
+  using: 'node20'
+  main: 'dist/action.js'

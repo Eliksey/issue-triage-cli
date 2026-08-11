@@ -5,7 +5,8 @@
 [![CI](https://github.com/Eliksey/issue-triage-cli/actions/workflows/ci.yml/badge.svg)](https://github.com/Eliksey/issue-triage-cli/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Node >=18](https://img.shields.io/badge/node-%3E%3D18-brightgreen)](package.json)
-[![npm version](https://img.shields.io/badge/npm-1.1.0-blue)](package.json)
+[![npm version](https://img.shields.io/badge/npm-1.2.0-blue)](package.json)
+[![Codex Ready](https://img.shields.io/badge/Codex-Ready-blue.svg)](https://openai.com)
 
 Built for real maintainer workflows: **priority ranking**, backlog scan, stale detection, label suggestions, and reports you can paste into release notes, team updates, or **AI coding agents** (Codex / ChatGPT).
 
